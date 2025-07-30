@@ -3,13 +3,10 @@ import { adminAuth, adminFirestore } from "@/lib/firebaseAdmin";
 
 export async function POST(request) {
   try {
-    const body = await request.json();
+    // const body = await request.json();
     const authHeader = request.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { 'content-type': 'application/json' },
-      });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const token = authHeader.split(' ')[1];
