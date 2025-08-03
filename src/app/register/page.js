@@ -6,17 +6,16 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export default function LogIn() {
-  const { authUser, loading, signInWithGoogle, signInWithEmail, signOutUser } = useAuth();
+  const { authUser, loading, signInWithGoogle, signUpWithEmail, signOutUser } = useAuth();
 
   const router = useRouter();
 
   useEffect(() => {
     async function check() {
       if (authUser) {
-
         const token = await authUser.getIdToken(true)
         try {
-          const response = await axios.post('/api/login', {}, {
+          const response = await axios.post('/api/register', {}, {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -42,7 +41,7 @@ export default function LogIn() {
   return (
     <>
       <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
+        <button onClick={() => signInWithGoogle()}>Sign in with Google</button>
       </div>
     </>
   );

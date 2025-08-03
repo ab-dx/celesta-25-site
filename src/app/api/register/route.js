@@ -24,7 +24,6 @@ export async function POST(request) {
         displayName: displayName,
         createdAt: Timestamp.now(),
         uid: uid,
-        points: 0
       });
     } else {
       return NextResponse.json({ success: false, message: 'UID already exists' });
