@@ -167,6 +167,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 .race {
   font-family: 'Race Sport';
@@ -182,5 +189,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins';
   }
 }
