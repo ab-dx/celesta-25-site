@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 //import LoadingPage from "@/components/loading-page";
 import axios from "axios";
+import styles from './Register.module.css'
 
 export default function LogIn() {
   const { authUser, loading, signInWithGoogle, signInWithEmail, signOutUser } = useAuth();
@@ -41,7 +42,8 @@ export default function LogIn() {
 
   return (
     <>
-      <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className={`bg-muted flex min-h-svh gap-8 items-center justify-center p-6 md:p-10 ${styles.background} text-white`}>
+        <h1 className="race font-bold text-5xl text-grad">Log in</h1>
         <button onClick={signInWithGoogle}>Sign in with Google</button>
       </div>
     </>

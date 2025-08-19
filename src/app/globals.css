@@ -183,6 +183,15 @@
   font-family: 'State Wide';
 }
 
+.text-grad {
+  background: radial-gradient(circle, #ffffff 29%, #4b4b4b 100%);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
