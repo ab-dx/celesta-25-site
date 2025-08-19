@@ -13,6 +13,27 @@ export default function Home() {
   const fadeRef = useRef(null);
 
   useEffect(() => {
+
+    gsap.utils.toArray(".reveal-section").forEach((section) => {
+      gsap.fromTo(
+        section,
+        { autoAlpha: 0, y: 100 },
+        {
+          duration: 1,
+          autoAlpha: 1,
+          y: 0,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    });
+  }, []);
+
+  useEffect(() => {
     gsap.from(fadeRef.current, {
       y: 30,
       duration: 1,
@@ -44,13 +65,13 @@ export default function Home() {
         <Image className="translate-y-[30px]" ref={fadeRef} src="/images/banner-logo.png" alt="banner-logo" width={1000} height={500} />
       </section>
       <ArrowDown className="text-white animate-bounce" />
-      <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw]">
+      <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw] reveal-section">
         <h1 className="text-white font-bold text-6xl state-wide mb-20">Past Performers</h1>
         {performers.map((performer, idx) =>
-          <PerformerCard idx={idx} key={idx} performer={performer} />
+          <PerformerCard className="reveal-section" idx={idx} key={idx} performer={performer} />
         )}
       </section>
-      <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw]">
+      <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw] reveal-section">
         <h1 className="text-white font-bold text-6xl state-wide mb-20">Events</h1>
       </section>
     </div>
