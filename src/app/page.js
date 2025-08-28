@@ -60,20 +60,26 @@ export default function Home() {
   ]
 
   return (
-    <div className={`flex flex-col justify-center items-center ${styles.background}`}>
-      <section className="flex h-[90vh] justify-center items-center">
-        <Image className="translate-y-[30px]" ref={fadeRef} src="/images/banner-logo.png" alt="banner-logo" width={1000} height={500} />
-      </section>
-      <ArrowDown className="text-white animate-bounce" />
-      <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw] reveal-section">
-        <h1 className="text-white font-bold text-6xl state-wide mb-20">Past Performers</h1>
-        {performers.map((performer, idx) =>
-          <PerformerCard className="reveal-section" idx={idx} key={idx} performer={performer} />
-        )}
-      </section>
-      <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw] reveal-section">
-        <h1 className="text-white font-bold text-6xl state-wide mb-20">Events</h1>
-      </section>
-    </div>
+    <>
+      <div className={`flex flex-col justify-center items-center ${styles.background}`}>
+        <section className="flex h-[90vh] justify-center items-center">
+          <Image className="translate-y-[30px]" ref={fadeRef} src="/images/banner-logo.png" alt="banner-logo" width={1000} height={500} />
+        </section>
+        <ArrowDown className="text-white animate-bounce" />
+      </div>
+      <div className={`flex flex-col justify-center items-center ${styles.background2}`}>
+        <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw] reveal-section">
+          <h1 className="text-white font-bold text-6xl state-wide mb-20">Past Performers</h1>
+          {performers.map((performer, idx) =>
+            <PerformerCard className="reveal-section" idx={idx} key={idx} performer={performer} />
+          )}
+        </section>
+      </div>
+      <div className={`flex flex-col justify-center items-center ${styles.background}`}>
+        <section className="flex flex-col gap-8 my-20 justify-center items-center w-[75vw] reveal-section">
+          <h1 className="text-white font-bold text-6xl state-wide mb-20">Events</h1>
+        </section>
+      </div>
+    </>
   );
 }

@@ -184,7 +184,7 @@
 }
 
 .text-grad {
-  background: radial-gradient(circle, #ffffff 29%, #4b4b4b 100%);
+  background: radial-gradient(circle, #ffffff 29%, #bebebe 100%);
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
