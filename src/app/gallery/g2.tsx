@@ -246,22 +246,22 @@ const ProductCard = ({ product, translate, onClick }: ProductCardProps) => {
 };
 export default function SurrealGallery() {
   const products: Product[] = [
-    { title: "Local Dream 1", link: "#", thumbnail: "/test/1.jpg" },
-    { title: "Local Dream 2", link: "#", thumbnail: "/test/2.jpg" },
-    { title: "Local Dream 3", link: "#", thumbnail: "/test/3.jpg" },
-    { title: "Local Dream 4", link: "#", thumbnail: "/test/4.jpg" },
-    { title: "Local Dream 5", link: "#", thumbnail: "/test/5.jpg" },
-    { title: "Local Dream 6", link: "#", thumbnail: "/test/6.jpg" },
-    { title: "Local Dream 7", link: "#", thumbnail: "/test/7.jpg" },
-    { title: "Local Dream 8", link: "#", thumbnail: "/test/8.jpg" },
+    // { title: "Local Dream 1", link: "#", thumbnail: "/test/1.jpg" },
+    // { title: "Local Dream 2", link: "#", thumbnail: "/test/2.jpg" },
+    // { title: "Local Dream 3", link: "#", thumbnail: "/test/3.jpg" },
+    // { title: "Local Dream 4", link: "#", thumbnail: "/test/4.jpg" },
+    // { title: "Local Dream 5", link: "#", thumbnail: "/test/5.jpg" },
+    // { title: "Local Dream 6", link: "#", thumbnail: "/test/6.jpg" },
+    // { title: "Local Dream 7", link: "#", thumbnail: "/test/7.jpg" },
+    // { title: "Local Dream 8", link: "#", thumbnail: "/test/8.jpg" },
     { title: "Enchanted Forest", link: "#", thumbnail: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2940&auto=format&fit=crop" },
     { title: "City of Clouds", link: "#", thumbnail: "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&w=2940&auto=format&fit=crop" },
     { title: "Timeless Sands", link: "#", thumbnail: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?q=80&w=2940&auto=format&fit=crop" },
     { title: "Retro Future", link: "#", thumbnail: "https://images.unsplash.com/photo-1519692933481-e162a57d6721?q=80&w=2940&auto=format&fit=crop" },
-    { title: "Abyssal Depths", link: "#", thumbnail: "/test/2.jpg" },
-    { title: "Solar Flare", link: "#", thumbnail: "/test/6.jpg" },
-    { title: "Frozen in Time", link: "#", thumbnail: "/test/1.jpg" },
-    //for gdrive just upload files there and add link here in thumbnail
+    // { title: "Abyssal Depths", link: "#", thumbnail: "/test/2.jpg" },
+    // { title: "Solar Flare", link: "#", thumbnail: "/test/6.jpg" },
+    // { title: "Frozen in Time", link: "#", thumbnail: "/test/1.jpg" },
+    // /*for gdrive just upload files there and add link here in thumbnail*/
   ];
 
   return (
