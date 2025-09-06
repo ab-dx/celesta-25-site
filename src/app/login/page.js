@@ -126,8 +126,9 @@ export default function LogIn() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            onSubmit={handleSubmit} className=" h-full w-full flex flex-col items-center gap-16 justify-center px-10">
-            <div className="flex items-end gap-16">
+            onSubmit={handleSubmit} 
+            className={`h-full w-auto lg:w-[25vw] flex flex-col items-center gap-8 justify-center px-6 py-6  ${styles.glassCard}`}>
+            <div className="flex items-end gap-16 p-0">
               <div className="flex flex-col gap-8">
 
                 {/* email  */}
