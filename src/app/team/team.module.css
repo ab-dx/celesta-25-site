@@ -1,0 +1,120 @@
+
+.imageHover {
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.imageHover:hover {
+  transform: scale(1.1);
+}
+
+.backgroundSection {
+  min-height: 100vh;
+  background-image: url('/images/auth-backdrop.png');
+  /* background-color: white; */
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.contentContainer {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+/* events.module.css */
+.metallicShine {
+  background: linear-gradient(
+    110deg,
+    #636363 0%,
+    #858585 25%,
+    #BFBFBF 45%,
+    #ffffff 50%,
+    #BFBFBF 55%,
+    #858585 75%,
+    #636363 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 2s linear infinite;
+}
+
+@keyframes shine {
+  0% { background-position: 200% 0%; }
+  100% { background-position: -200% 0%; }
+}
+
+.card {
+  /* width: 300px;
+  height: 400px; */
+  background: #eeeff1;
+  color: white;
+  /* padding: 20px; */
+  /* clip-path: polygon(60px 0, 100% 0, 100% 100%, 0 100%, 0 60px); */
+  clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%, 0 40px);
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, #928dab, #1f1c2c) 1;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.cardname{
+  margin: 0;         
+  padding: 0;        
+  line-height: 0.9;    
+  display: block;    
+  width: calc(var(--spacing) * 43);
+  height: 50px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  /* border-top: 2px solid transparent; */
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-image: linear-gradient(135deg, #928dab, #1f1c2c) 1;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+
+
+
+
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 15px, 100% 100%, 0 100%);
+    display: flex;              
+  justify-content: center;    
+  align-items: center;        
+  
+}
+.cardname2{
+  margin: -1px 0 0;         
+  padding: 0;        
+  line-height: 0.9;  
+  display: block;    
+  width : calc(var(--spacing) * 25);
+  height : 30px;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  border-left: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-image: linear-gradient(135deg, #928dab, #1f1c2c) 1;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+
+
+
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 0%,   
+    70% 100%,   
+    0 100%
+  );
+  .cardStack {
+    display: flex;
+    flex-direction: column;
+    line-height: 0;
+  }
+  
+
+}
