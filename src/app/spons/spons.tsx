@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
-
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -97,11 +96,37 @@ const SponsorCard = ({ sponsor }: { sponsor: { name: string, logoUrl: string, we
     );
 };
 
+const CodingBitsCelebration = () => {
+    const bits = ['</>', '{}', '=>', '01', '()', '[]', '&&', '||', '!', '++'];
+    const particles = Array.from({ length: 100 }).map((_, i) => {
+        const bit = bits[Math.floor(Math.random() * bits.length)];
+        const x = Math.random() * 100;
+        const duration = 2 + Math.random() * 3;
+        const delay = Math.random() * 2;
+        const scale = 1 + Math.random() * 1.5;
+        return (
+            <motion.span
+                key={i}
+                initial={{ y: '-10vh', x: `${x}vw`, opacity: 0, scale: 0 }}
+                animate={{ y: '110vh', opacity: 1, scale: scale }}
+                transition={{ duration, delay, ease: "linear" }}
+                className="absolute text-cyan-400/80 font-mono text-3xl"
+            >
+                {bit}
+            </motion.span>
+        );
+    });
+
+    return <div className="fixed inset-0 z-50 pointer-events-none">{particles}</div>;
+};
+
 export default function SponsorsPage() {
     const [showGame, setShowGame] = useState(false);
+    const [showCelebration, setShowCelebration] = useState(false);
     const pressTimer = useRef<NodeJS.Timeout | null>(null);
     const [progress, setProgress] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [logoTaps, setLogoTaps] = useState(0);
 
     const [[page, direction], setPage] = useState([0, 0]);
     const sponsorsPerPage = 15;
@@ -115,15 +140,10 @@ export default function SponsorsPage() {
 
     useEffect(() => {
         if (isPaused) return;
-
         setIsAnimating(true);
-        const interval = setInterval(() => {
-            paginate(1);
-        }, 5000);
-        
+        const interval = setInterval(() => paginate(1), 1500);
         setTimeout(() => setIsAnimating(false), 100);
         setTimeout(() => setIsAnimating(true), 150);
-
         return () => clearInterval(interval);
     }, [page, isPaused]);
 
@@ -133,11 +153,9 @@ export default function SponsorsPage() {
     useEffect(() => {
         const carousel = carouselRef.current;
         if (!carousel) return;
-
         const handleWheel = (event: WheelEvent) => {
             if (isWheeling.current) return;
             event.preventDefault();
-
             if (Math.abs(event.deltaY) > 1) {
                 isWheeling.current = true;
                 if (event.deltaY > 0) paginate(1);
@@ -145,7 +163,6 @@ export default function SponsorsPage() {
                 setTimeout(() => { isWheeling.current = false; }, 800);
             }
         };
-
         carousel.addEventListener('wheel', handleWheel, { passive: false });
         return () => carousel.removeEventListener('wheel', handleWheel);
     }, []);
@@ -154,26 +171,48 @@ export default function SponsorsPage() {
     const visibleSponsors = sponsors.slice(pageIndex * sponsorsPerPage, (pageIndex + 1) * sponsorsPerPage);
 
     const carouselVariants = {
-        enter: (direction: number) => ({
-            x: direction > 0 ? '100%' : '-100%', opacity: 0
-        }),
+        enter: (direction: number) => ({ x: direction > 0 ? '100%' : '-100%', opacity: 0 }),
         center: { x: 0, opacity: 1 },
-        exit: (direction: number) => ({
-            x: direction < 0 ? '100%' : '-100%', opacity: 0
-        }),
+        exit: (direction: number) => ({ x: direction < 0 ? '100%' : '-100%', opacity: 0 }),
     };
 
     const startPressTimer = () => {
         pressTimer.current = setTimeout(() => {
-            setShowGame(true);
+            setShowCelebration(true);
+            setTimeout(() => {
+                setShowCelebration(false);
+                setShowGame(true);
+            }, 3000);
             setProgress(0);
-        }, 10000);
+        }, 6000);
         setProgress(100);
     };
 
     const cancelPressTimer = () => {
         if (pressTimer.current) clearTimeout(pressTimer.current);
         setProgress(0);
+    };
+
+    useEffect(() => {
+        if (logoTaps > 0) {
+            const timer = setTimeout(() => setLogoTaps(0), 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [logoTaps]);
+
+    const handleLogoClick = () => {
+        const newTaps = logoTaps + 1;
+        setLogoTaps(newTaps);
+        if (newTaps >= 7) {
+            setShowCelebration(true);
+            setTimeout(() => {
+                setShowCelebration(false);
+                setShowGame(true);
+            }, 3000);
+            setLogoTaps(0);
+        } else {
+            paginate(1);
+        }
     };
 
     return (
@@ -183,18 +222,18 @@ export default function SponsorsPage() {
             onTouchStart={startPressTimer} onTouchEnd={cancelPressTimer}
         >
             <div className="fixed inset-0 z-0">
-                <img src="/images/events-backdrop.png" alt="Background" className="w-full h-full object-cover opacity-80"/>
+                <img src="/images/events-backdrop.png" alt="Background" className="w-full h-full object-cover opacity-75"/>
             </div>
             <div className="fixed top-0 left-0 w-full h-1 z-50 pointer-events-none">
                  <motion.div 
                     className="h-full bg-cyan-400"
                     initial={{ width: '0%' }}
                     animate={{ width: `${progress}%` }}
-                    transition={{ duration: progress > 0 ? 10 : 0, ease: 'linear' }}
+                    transition={{ duration: progress > 0 ? 6 : 0, ease: 'linear' }}
                  />
             </div>
-            <div className="absolute inset-0 z-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,transparent_75%,black)]">
-                <svg className="absolute inset-0 h-full w-full">
+            <div className="absolute inset-0 z-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,transparent_65%,white_100%)]">
+                <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
                     <defs>
                         <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="currentColor" strokeWidth="0.5"></path></pattern>
                     </defs>
@@ -221,7 +260,7 @@ export default function SponsorsPage() {
                     onMouseLeave={() => setIsPaused(false)}
                 >
                     <button onClick={() => paginate(-1)} className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-colors">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                     </button>
                     <div className="relative w-full h-[500px] overflow-hidden">
                         <AnimatePresence initial={false} custom={direction}>
@@ -246,20 +285,29 @@ export default function SponsorsPage() {
                     </button>
                 </div>
                  <div className="mt-8 flex justify-center">
-                    <button onClick={() => paginate(1)} className="relative w-16 h-16 flex items-center justify-center">
+                    <button onClick={handleLogoClick} className="relative w-16 h-16 flex items-center justify-center">
                         <div className={cn("absolute inset-0 rounded-full bg-cyan-500/20", isAnimating && !isPaused && "animate-ping-slow")}></div>
                         <img src="/images/celesta-icon.png" alt="Celesta Icon" className="w-10 h-10"/>
                     </button>
                 </div>
+                <motion.p
+                    className="mt-4 text-xs text-gray-500 text-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 1.5 }}
+                >
+                    Hint: Try a long press on sponsors or tap the logo seven times.
+                </motion.p>
             </div>
             <AnimatePresence>
+                {showCelebration && <CodingBitsCelebration />}
                 {showGame && (
                     <motion.div
                         className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center"
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     >
                         <div className="w-full h-full max-w-4xl max-h-[80vh] bg-slate-900/50 backdrop-blur-lg border border-slate-700 rounded-lg shadow-2xl p-4 flex flex-col">
-                           <iframe src="https://chromedino.com/" title="Chrome Dino Game" className="w-full h-full border-0 rounded-md"/>
+                           <iframe src="https://dino-chrome.com/" title="Chrome Dino Game" className="w-full h-full border-0 rounded-md"/>
                             <button onClick={() => setShowGame(false)} className="mt-4 bg-gray-300 text-black font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors">
                                 Close Game
                             </button>
@@ -273,10 +321,9 @@ export default function SponsorsPage() {
                     75%, 100% { transform: scale(2); opacity: 0; }
                 }
                 .animate-ping-slow {
-                    animation: ping-slow 5s cubic-bezier(0, 0, 0.2, 1) infinite;
+                    animation: ping-slow 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
                 }
             `}</style>
         </div>
     );
 }
-
