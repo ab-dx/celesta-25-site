@@ -18,8 +18,8 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-6 font-orbitron text-sm uppercase">
           <Link href="/" className="opacity-80 hover:opacity-100 transition">Home</Link>
           <Link href="/events" className="opacity-80 hover:opacity-100 transition">Events</Link>
-          <Link href="/sponsors" className="opacity-80 hover:opacity-100 transition">Sponsors</Link>
-          <Link href="/gallery" onClick={() => setIsOpen(false)} className="px-4 py-2 text-white rounded-md hover:bg-white/10 transition-colors">Gallery</Link>
+          <Link href="/spons" className="opacity-80 hover:opacity-100 transition">Sponsors</Link>
+          <Link href="/gallery" className="opacity-80 hover:opacity-100 transition">Gallery</Link>
           <Link href="/login" className="rounded-full border-2 border-teal-500 px-5 py-2 opacity-80 hover:opacity-100 hover:bg-teal-500 hover:text-black transition">Login</Link>
           <Link href="/register" className="rounded-full bg-teal-500 px-5 py-2 text-black hover:bg-teal-400 transition">Register</Link>
         </div>
