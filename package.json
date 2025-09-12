@@ -31,9 +31,9 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/react": "19.1.12",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.6",
-    "@types/react": "^19.1.2",
-    "typescript": "^5.9.2"
+    "typescript": "5.9.2"
   }
 }
