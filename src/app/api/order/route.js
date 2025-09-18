@@ -6,13 +6,14 @@ import { Timestamp } from "firebase-admin/firestore";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const parsed = invoiceSchema.safeParse(body);
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: "Invalid request", details: parsed.error.errors },
-        { status: 400 }
-      );
-    }
+    //const parsed = invoiceSchema.safeParse(body);
+    const parsed = (body);
+    // if (!parsed.success) {
+    //   return NextResponse.json(
+    //     { error: "Invalid request", details: parsed.error.errors },
+    //     { status: 400 }
+    //   );
+    // }
 
     const authHeader = request.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -27,8 +28,10 @@ export async function POST(request) {
     if (!decodedToken) return NextResponse.json({ error: 'Unauthorized' })
     const uid = decodedToken.uid;
     const db = adminFirestore;
+    console.log(parsed)
     const docRef = await db.collection("invoices").add({
-      ...parsed.data,
+      // ...parsed.data,
+      ...parsed,
       createdAt: Timestamp.now(),
       uid: uid,
     });
