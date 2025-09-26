@@ -1,0 +1,25 @@
+{
+  "workshops": [
+    {
+      "name": "Mastering Generative AI",
+      "img_src": "/images/tech1.jpg",
+      "register_link": "https://unstop.com/college-fests/celesta-2025-indian-institute-of-technology-patna-383006"
+    },
+    {
+      "name": "Drone Technology",
+      "img_src": "/images/tech1.jpg",
+      "register_link": "https://unstop.com/college-fests/celesta-2025-indian-institute-of-technology-patna-383006"
+    },
+    {
+      "name": "AI in Film Making",
+      "img_src": "/images/tech1.jpg",
+      "register_link": "https://unstop.com/college-fests/celesta-2025-indian-institute-of-technology-patna-383006"
+    },
+    {
+      "name": "Cyber Security with Ethical Hacking",
+      "img_src": "/images/tech1.jpg",
+      "register_link": "https://unstop.com/college-fests/celesta-2025-indian-institute-of-technology-patna-383006"
+    }
+  ]
+}
+
