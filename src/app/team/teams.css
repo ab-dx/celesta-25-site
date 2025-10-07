@@ -1,0 +1,147 @@
+/* === TEAMS PAGE BASE === */
+.teams-page,
+.teams-chart {
+  background-color: transparent;
+}
+
+.teams-title {
+  color: white;
+  text-align: center;
+  padding-top: 2rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* === NODE CARD === */
+.node-card {
+  position: relative;
+  text-align: center;
+  padding: 50px 20px 25px 20px;
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05); /* transparent glassy feel */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: visible; /* ✅ show avatar */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  z-index: 0;
+}
+
+/* === GLOWING BORDER ONLY (NOT TILE BACKGROUND) === */
+.node-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, #00e0ff, #00ff85, #007bff, #00e0ff);
+  background-size: 400%;
+  animation: spinBorder 6s linear infinite;
+  z-index: -1; /* ✅ behind card */
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+}
+
+@keyframes spinBorder {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+/* === HOVER EFFECT === */
+.node-card:hover {
+  box-shadow: 0 6px 25px rgba(0, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+/* === AVATAR (VISIBLE, NOT CUT OFF) === */
+.node-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  background-color: #fff;
+  object-fit: cover;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; /* ✅ above glowing border */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* === INFO === */
+.node-info {
+  margin-top: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.node-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.node-title {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* === SOCIAL ICONS (LOCAL SVG) === */
+.node-social-links {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+  position: relative;
+}
+
+.node-card:hover .node-social-links {
+  opacity: 1;
+  transform: translateY(-4px);
+}
+
+.node-social-links {
+  transform: translateY(6px);
+  transition: all 0.35s ease;
+}
+
+.social-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.4s ease;
+  filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.5));
+}
+
+.social-icon:hover {
+  opacity: 1;
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.8));
+}
+
+/* === LINKS BETWEEN NODES === */
+svg .link {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 2px;
+}
+
+svg .exp-coll-button rect {
+  fill: rgba(0, 0, 0, 0.3) !important;
+  stroke: rgba(255, 255, 255, 0.3) !important;
+  rx: 6 !important;
+  ry: 6 !important;
+}
+
+svg .exp-coll-button text {
+  fill: white !important;
+}
