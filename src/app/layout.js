@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       <body>
         <AuthUserProvider>
           <CartProvider>
-            <Navbar />
+            <Navbar/>
             <FloatingNav />
             <FloatingCart />
             {children}
