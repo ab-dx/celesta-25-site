@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
 function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
 
 const sponsorData = [
@@ -58,36 +58,36 @@ const sponsorData = [
     { logo: "47zebronics.png", url: "https://zebronics.com/" }
 ];
 
-const logosNeedingWhiteBg = [5,6,7,20,26,27,30,35];
+const logosNeedingWhiteBg = [5, 6, 7, 20, 26, 27, 30, 35];
 
 const sponsors = sponsorData.map((sponsor, i) => ({
-  name: `Sponsor ${i + 1}`,
-  logoUrl: `/spons_logos/${sponsor.logo}`,
-  websiteUrl: sponsor.url,
-  needsWhiteBg: logosNeedingWhiteBg.includes(i + 1),
+    name: `Sponsor ${i + 1}`,
+    logoUrl: `/spons_logos/${sponsor.logo}`,
+    websiteUrl: sponsor.url,
+    needsWhiteBg: logosNeedingWhiteBg.includes(i + 1),
 }));
 
 const SponsorCard = ({ sponsor }: { sponsor: { name: string, logoUrl: string, websiteUrl: string, needsWhiteBg: boolean } }) => {
     return (
-        <motion.a 
-            href={sponsor.websiteUrl} 
-            target="_blank" 
-            rel="noopener noreferrer" 
+        <motion.a
+            href={sponsor.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group block relative w-full h-full"
             whileHover={{ scale: 1.1, zIndex: 10 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
             <div className="bg-slate-900/30 backdrop-blur-sm p-4 rounded-2xl border border-slate-700/50 group-hover:border-cyan-500/80 transition-all duration-300 h-full flex items-center justify-center aspect-[16/9] group-hover:shadow-2xl group-hover:shadow-cyan-500/10">
                 <div className={cn(
-                    "w-full h-full rounded-lg flex items-center justify-center p-2",
+                    "w-full h-full rounded-lg flex items-center justify-center p-0 md:p-2",
                     sponsor.needsWhiteBg && "bg-white"
                 )}>
                     <img
                         src={sponsor.logoUrl}
                         alt={`${sponsor.name} logo`}
-                        className="max-h-20 w-auto object-contain transition-transform duration-300"
+                        className="max-h-full w-auto object-contain transition-transform duration-300"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = `https://placehold.co/250x150/111827/FFFFFF?text=${sponsor.name.replace(' ', '+')}`;
+                            (e.target as HTMLImageElement).src = `https://placehold.co/250x150/111827/FFFFFF?text=${sponsor.name.replace(' ', '+')}`;
                         }}
                     />
                 </div>
@@ -129,13 +129,38 @@ export default function SponsorsPage() {
     const [logoTaps, setLogoTaps] = useState(0);
 
     const [[page, direction], setPage] = useState([0, 0]);
-    const sponsorsPerPage = 15;
+
+
+
+    // Sponsors per page is chosen dynamically
+    const maxRows = 3;
+    const [windowWidth, setWindowWidth] = useState(
+        typeof window !== 'undefined' ? window.innerWidth : 1200
+    );
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    let cols = 4;
+    if (windowWidth < 500) cols = 1;
+    else if (windowWidth < 768) cols = 2;
+    else if (windowWidth < 1024) cols = 3;
+
+
+    const sponsorsPerPage = cols * maxRows;
     const pageCount = Math.ceil(sponsors.length / sponsorsPerPage);
-    
+    const gap = 16;
+    const containerWidth = windowWidth * 0.8;
+    const cardWidth = (containerWidth - gap * (cols - 1)) / cols;
+    const rowHeight = cardWidth * 9 / 16;
+
     const paginate = (newDirection: number) => {
         setPage(prev => [prev[0] + newDirection, newDirection]);
     };
-    
+
     const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
@@ -216,21 +241,21 @@ export default function SponsorsPage() {
     };
 
     return (
-        <div 
+        <div
             className="min-h-screen bg-black text-white relative overflow-hidden font-sans"
             onMouseDown={startPressTimer} onMouseUp={cancelPressTimer} onMouseLeave={cancelPressTimer}
             onTouchStart={startPressTimer} onTouchEnd={cancelPressTimer}
         >
             <div className="fixed inset-0 z-0">
-                <img src="/images/events-backdrop.png" alt="Background" className="w-full h-full object-cover opacity-75"/>
+                <img src="/images/events-backdrop.png" alt="Background" className="w-full h-full object-cover opacity-75" />
             </div>
             <div className="fixed top-0 left-0 w-full h-1 z-50 pointer-events-none">
-                 <motion.div 
+                <motion.div
                     className="h-full bg-cyan-400"
                     initial={{ width: '0%' }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: progress > 0 ? 6 : 0, ease: 'linear' }}
-                 />
+                />
             </div>
             <div className="absolute inset-0 z-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,transparent_65%,white_100%)]">
                 <svg className="absolute inset-0 h-full w-full" aria-hidden="true">
@@ -241,53 +266,85 @@ export default function SponsorsPage() {
                 </svg>
             </div>
             <div className="container mx-auto px-4 py-24 relative z-10 flex flex-col items-center">
-                <motion.h1 
+                <motion.h1
                     className="text-5xl md:text-7xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
                     initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
                 >
                     Our Valued Previous Sponsors
                 </motion.h1>
-                <motion.p 
+                <motion.p
                     className="text-lg text-center text-gray-400 mb-12 max-w-2xl"
                     initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     Fueling innovation and making our events possible.
                 </motion.p>
-                <div 
-                    ref={carouselRef} 
-                    className="relative w-full max-w-7xl flex items-center justify-center"
+                <div
+                    ref={carouselRef}
+                    className="relative w-full max-w-8xl flex items-center justify-center"
                     onMouseEnter={() => setIsPaused(true)}
                     onMouseLeave={() => setIsPaused(false)}
                 >
-                    <button onClick={() => paginate(-1)} className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-colors">
-                        <svg width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                    </button>
-                    <div className="relative w-full h-[500px] overflow-hidden">
-                        <AnimatePresence initial={false} custom={direction}>
-                            <motion.div
-                                key={page}
-                                custom={direction}
-                                variants={carouselVariants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                                className="absolute inset-0 grid grid-cols-5 grid-rows-3 gap-6 p-4"
+
+                    {/* Left Arrow */}
+                    <button
+                        onClick={() => paginate(-1)}
+                        className="absolute left-2 md:left-4 z-20 p-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-colors"
+                        style={{ top: "50%", transform: "translateY(-50%)" }}
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                        >
+                            <path d="m15 18-6-6 6-6" />
+                        </svg>
+                        </button>
+
+
+                        <div className="relative w-[90vw] overflow-hidden h-[700px] sm:h-[550px] md:h-[500px] lg:h-[600px]">
+                            <AnimatePresence initial={false} custom={direction}>
+                                <motion.div
+                                    key={page}
+                                    custom={direction}
+                                    variants={carouselVariants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    transition={{ x: { type: 'spring', stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+                                    className="absolute inset-0 grid gap-4 p-4 md:p-6 lg:px-8"
+                                    style={{
+                                        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+                                        gridAutoRows: `${rowHeight}px`,
+                                        height: '100%',
+
+                                    }}
+                                >
+                                    {visibleSponsors.map((sponsor) => (
+                                        <div
+                                            key={sponsor.name}
+                                            className="w-full h-full flex items-center justify-center"
+                                        >
+                                            <SponsorCard sponsor={sponsor} />
+                                        </div>
+                                    ))}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Right Arrow */}
+                        <button
+                            onClick={() => paginate(1)}
+                            className="absolute right-2 md:right-4 z-20 p-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-colors"
+                            style={{ top: "50%", transform: "translateY(-50%)" }}
+                        >
+                            <svg
+                                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                             >
-                                {visibleSponsors.map((sponsor) => (
-                                    <SponsorCard key={sponsor.name} sponsor={sponsor} />
-                                ))}
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-                    <button onClick={() => paginate(1)} className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-colors">
-                        <svg width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
                 </div>
-                 <div className="mt-8 flex justify-center">
+                <div className="mt-8 flex justify-center">
                     <button onClick={handleLogoClick} className="relative w-16 h-16 flex items-center justify-center">
                         <div className={cn("absolute inset-0 rounded-full bg-cyan-500/20", isAnimating && !isPaused && "animate-ping-slow")}></div>
-                        <img src="/images/celesta-icon.png" alt="Celesta Icon" className="w-10 h-10"/>
+                        <img src="/images/celesta-icon.png" alt="Celesta Icon" className="w-10 h-10" />
                     </button>
                 </div>
                 <motion.p
@@ -307,7 +364,7 @@ export default function SponsorsPage() {
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     >
                         <div className="w-full h-full max-w-4xl max-h-[80vh] bg-slate-900/50 backdrop-blur-lg border border-slate-700 rounded-lg shadow-2xl p-4 flex flex-col">
-                           <iframe src="https://dino-chrome.com/" title="Chrome Dino Game" className="w-full h-full border-0 rounded-md"/>
+                            <iframe src="https://dino-chrome.com/" title="Chrome Dino Game" className="w-full h-full border-0 rounded-md" />
                             <button onClick={() => setShowGame(false)} className="mt-4 bg-gray-300 text-black font-bold py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors">
                                 Close Game
                             </button>
