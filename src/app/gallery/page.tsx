@@ -1,4 +1,4 @@
-import SurrealGallery from "@/app/gallery/g2";
+import SurrealGallery from "@/app/gallery/gall";
 
 export default function HomePage() {
   return (
