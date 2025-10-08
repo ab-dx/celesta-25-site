@@ -22,7 +22,7 @@ export default function Store() {
   return <>
     <div className={`bg-muted flex flex-col min-h-svh gap-8 items-left justify-center p-2 md:p-10 ${styles.background} text-white`}>
       <h1 className="race font-bold text-5xl text-grad mt-[15vh]">Store</h1>
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-8">
+      <div className="flex items-center justify-center flex-wrap gap-2 md:gap-8">
         {products.map((product, idx) => <ProductCard key={idx} name={product.name} cost={product.cost} id={product.id} img_src={product.img_src} />)}
       </div>
     </div>
