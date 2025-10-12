@@ -5,6 +5,11 @@ import { ArrowDown } from "lucide-react";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Events from "./events/page";
+import Workshop from "./workshop/page";
+import SponsorsPage from "./spons/spons";
+import SurrealGallery from "./gallery/gall";
+import TeamsPage from "./team/page";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -195,8 +200,42 @@ export default function Home() {
 
       {/* Events Section */}
       <div className={`flex flex-col justify-center items-center ${styles.background} w-full`}>
-        <section className="flex flex-col gap-8 my-20 justify-center items-center w-full px-4 sm:px-10 md:px-20 reveal-section">
-          <h1 className="text-white font-bold text-6xl sm:text-5xl text-center mb-20">Events</h1>
+        <section className="flex flex-col gap-8 justify-center items-center w-full reveal-section backdrop-brightness-50">
+          <div className="w-full">
+            <Events/>
+          </div>
+        </section>
+      </div>
+
+      <div className={`flex flex-col justify-center items-center ${styles.background} w-full`}>
+        <section className="flex flex-col gap-8 justify-center items-center w-full reveal-section backdrop-brightness-50">
+          <div>
+            <SponsorsPage/>
+          </div>
+        </section>
+      </div>
+
+      <div className={`flex flex-col justify-center items-center ${styles.background} w-full`}>
+        <section className="flex flex-col gap-8 justify-center items-center w-full reveal-section backdrop-brightness-50">
+          <div className="w-full">
+            <Workshop/>
+          </div>
+        </section>
+      </div>
+
+      <div className={`flex flex-col justify-center items-center ${styles.background} w-full`}>
+        <section className="flex flex-col gap-8 justify-center items-center w-full reveal-section backdrop-brightness-50">
+          <div className="w-full">
+            <TeamsPage/>
+          </div>
+        </section>
+      </div>
+
+      <div className={`flex flex-col justify-center items-center ${styles.background} w-full`}>
+        <section className="flex flex-col gap-8 justify-center items-center w-full reveal-section backdrop-brightness-50">
+          <div className="w-full">
+            <SurrealGallery/>
+          </div>
         </section>
       </div>
     </div>

@@ -2,7 +2,7 @@ import EventCard from './event-card';
 import styles from './Events.module.css';
 import data from './events.json';
 
-export default function Store() {
+export default function Events() {
   const events = data["events"];
 
   return (
