@@ -1,10 +1,19 @@
-// team/page.tsx
-
 "use client";
 import React, { useEffect, useRef } from "react";
-import { OrgChart, D3Node } from "./d3-org-chart";
+import { OrgChart } from "./d3-org-chart";
 import { teamData } from "./teamData";
 import "./teams.css";
+
+interface D3Node {  // optional for typing
+    data: {
+        name: string;
+        title: string;
+        image?: string;
+        linkedin?: string;
+        x?: string;
+        [key: string]: any;
+    };
+}
 
 export default function TeamsPage() {
   const chartRef = useRef<HTMLDivElement | null>(null);
@@ -14,11 +23,9 @@ export default function TeamsPage() {
     if (!chartRef.current || chartInstanceRef.current) {
       return;
     }
-    // **Variable Renamed Here**
-    const parvChart = new OrgChart();
+    const parvChart = new (OrgChart as any)();
     chartInstanceRef.current = parvChart;
 
-    // **Using the new variable name**
     parvChart
       .container(chartRef.current)
       .data(teamData)
